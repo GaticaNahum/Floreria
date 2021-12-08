@@ -38,6 +38,7 @@ router.post('/update/:id', async(req, res) => {
 // DESACTIVATE A USER
 
 router.post('/delete/:id', async(req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const { id } = req.params;
     pool.query('UPDATE usuario SET status = 0 WHERE idUser = ?', [id]);
     res.json({

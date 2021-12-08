@@ -1,6 +1,5 @@
 const url = "http://localhost:5000";
 
-
 const findCliente = async() => {
     await $.ajax({
         method: 'GET',
@@ -19,24 +18,21 @@ const findCliente = async() => {
                 <td>${res[i].status ==1?"Activo":"Inactivo"} </td>
                 <td>${res[i].rol ==1?"Administrador":"Cliente"}</td>
                 <td>
-                    <button class='btn btn-primary' data-toggle='modal'  data-target='#detalles'><i class='fas fa-info-circle'></i></button>
+                    <button class='btn btn-primary' data-toggle='modal' onclick='getInfoClient(${res[i].idCliente})' data-target='#detallesCliente'><i class='fas fa-info-circle'></i></button>
                 </td>
                 <td>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalModificarAuto" class="btn btn-outline-warning"><i class="fas fa-edit"></i></button>
+                    <button class='btn btn-danger' data-toggle='modal' onclick='getIdUser(${res[i].idCliente})' data-target='#eliminar'><i class="fas fa-trash"></i></button>
                 </td>
-                <td>
-                    <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                </td>
-            /tr>
+            </tr>
                 `;
-        }
-        $("#table2 > tbody").html(content);
+        };
+        $("#table2 > tbody").html(content)
     });
 };
 findCliente();
 
 
-const getById = async id => {
+const getByIdClient = async id => {
     return await $.ajax({
         type: 'GET',
         url: url + '/cliente/' + id
@@ -46,7 +42,18 @@ const getById = async id => {
 };
 
 
-const registerArreglo = async() => {
+const getInfoClient = async id => {
+    let cliente = await getByIdClient(id);
+
+    document.getElementById('nameInfo').value = cliente.cliente[0].name;
+    document.getElementById('lastNameInfo').value = cliente.cliente[0].lastName;
+    document.getElementById('secondNameInfo').value = cliente.cliente[0].secondName;
+    document.getElementById('phoneInfo').value = cliente.cliente[0].phone;
+    document.getElementById('addressInfo').value = cliente.cliente[0].address;
+}
+
+
+const registerClient = async() => {
     let name = document.getElementById('name').value;
     let lastName = document.getElementById('primerApellido').value;
     let secondName = document.getElementById('segundoApellido').value;
@@ -63,4 +70,20 @@ const registerArreglo = async() => {
     }).done(function(res) {
         console.log(res);
     });
+};
+
+
+const downClient = async() => {
+    let id = document.getElementById('id_deleteUser').value;
+    await $.ajax({
+        type: 'POST',
+        url: url + '/usuario/delete/' + id
+    }).done(res => {
+        console.log(res);
+        findCliente();
+    });
+};
+
+const getIdUser = async id => {
+    document.getElementById("id_deleteUser").value = id;
 };

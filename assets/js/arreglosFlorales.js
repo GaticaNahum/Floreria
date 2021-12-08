@@ -23,12 +23,12 @@ const findArreglo = async() => {
                     <button class='btn btn-primary' data-toggle='modal' onclick='getInfoArreglo(${res[i].idArreglo})'  data-target='#detallesProducto'><i class='fas fa-info-circle'></i></button>
                 </td>
                 <td>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalModificarAuto" class="btn btn-outline-warning"><i class="fas fa-edit"></i></button>
+                    <button class='btn btn-warning' data-toggle='modal' data-target='#updateProducto'><i class="fas fa-edit"></i></button>
                 </td>
                 <td>
                     <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
                 </td>
-            /tr>
+            </tr>
                 `;
         }
         $("#productos > tbody").html(content);
@@ -52,4 +52,15 @@ const getInfoArreglo = async id => {
 
     document.getElementById('descripcionInfo').value = arreglo.arreglo[0].description;
     document.getElementById('categoriaInfo').value = arreglo.arreglo[0].idCategoria;
+}
+
+
+const getInfoUpdateArreglo = async id => {
+    let autos = await getByAuto(id);
+
+    document.getElementById('idArreglo').value = id
+    document.getElementById('nombre_update').value = autos.autos[0].nombre
+    document.getElementById('matricula_update').value = autos.autos[0].matricula
+    document.getElementById('anio_update').value = autos.autos[0].añoVerificacion
+    document.getElementById('marcaAuto_update').value = autos.autos[0].marca
 }
