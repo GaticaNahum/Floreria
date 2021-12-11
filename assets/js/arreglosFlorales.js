@@ -1,5 +1,47 @@
 const urlA = "http://localhost:5000";
 
+//Crear un arreglo
+
+const createArreglo = async() => {
+    let name = document.getElementById('nombreArreglo').value;
+    let description = document.getElementById('descripcionArreglo').value;
+    let price = document.getElementById('precioArreglo').value;
+    let quantity = document.getElementById('cantidadArreglo').value;
+
+    if (name !== "" || description !== "", price !== "", quantity !== "") {
+
+        $.ajax({
+            type: 'POST',
+            headers: { "Accept": "application/json" },
+            url: urlA + '/producto/create',
+            data: { name, description, price, quantity }
+        }).done(res => {
+            if (res.status === 200) {
+
+                Swal.fire({
+                    title: "Se ha creado correctamente",
+                    confirmButtonText: "Aceptar",
+                    icon: "success",
+                });
+                findArreglo();
+            } else {
+                Swal.fire({
+                    title: "Se ha creado correctamente",
+                    confirmButtonText: "Aceptar",
+                    icon: "error",
+                });
+                findArreglo();
+            }
+        });
+    } else {
+        Swal.fire({
+            title: "Rellena los campos hola primero",
+            confirmButtonText: "Aceptar",
+            icon: "error",
+        })
+    }
+};
+
 
 const findArreglo = async() => {
     await $.ajax({
@@ -23,10 +65,10 @@ const findArreglo = async() => {
                     <button class='btn btn-primary' data-toggle='modal' onclick='getInfoArreglo(${res[i].idArreglo})'  data-target='#detallesProducto'><i class='fas fa-info-circle'></i></button>
                 </td>
                 <td>
-                    <button class='btn btn-warning' data-toggle='modal' data-target='#updateProducto'><i class="fas fa-edit"></i></button>
+                    <button data-toggle='modal' onclick='getInfoUpdateArreglo(${res[i].idArreglo})' data-target='#update' class='btn btn-warning'><i class="fas fa-edit"></i></button>
                 </td>
                 <td>
-                    <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    <button class='btn btn-danger' data-toggle='modal' onclick='getId(${res[i].idArreglo})' data-target='#delete' ><i class="fas fa-trash"></i></button>
                 </td>
             </tr>
                 `;
@@ -36,7 +78,7 @@ const findArreglo = async() => {
 };
 findArreglo();
 
-
+//Obtener Id del arreglo seleccionado
 
 const getByIdF = async id => {
     return await $.ajax({
@@ -47,20 +89,59 @@ const getByIdF = async id => {
     });
 };
 
+//Obtener la información del arreglo
+
 const getInfoArreglo = async id => {
     let arreglo = await getByIdF(id);
 
     document.getElementById('descripcionInfo').value = arreglo.arreglo[0].description;
-    document.getElementById('categoriaInfo').value = arreglo.arreglo[0].idCategoria;
+
 }
 
+//Obtener informacion para actualizar
 
 const getInfoUpdateArreglo = async id => {
-    let autos = await getByAuto(id);
+    let arreglo = await getByIdF(id);
 
-    document.getElementById('idArreglo').value = id
-    document.getElementById('nombre_update').value = autos.autos[0].nombre
-    document.getElementById('matricula_update').value = autos.autos[0].matricula
-    document.getElementById('anio_update').value = autos.autos[0].añoVerificacion
-    document.getElementById('marcaAuto_update').value = autos.autos[0].marca
-}
+    document.getElementById('id_update').value = id
+    document.getElementById('name_update').value = arreglo.arreglo[0].name
+    document.getElementById('descripcion_update').value = arreglo.arreglo[0].description
+    document.getElementById('price_update').value = arreglo.arreglo[0].price
+    document.getElementById('quantity_update').value = arreglo.arreglo[0].quantity
+};
+
+//Actualizar arreglo
+
+const updateArreglo = async() => {
+    let id = document.getElementById('id_update').value;
+    let name = document.getElementById('name_update').value;
+    let description = document.getElementById('descripcion_update').value;
+    let price = document.getElementById('price_update').value;
+    let quantity = document.getElementById('quantity_update').value;
+
+    $.ajax({
+        type: 'POST',
+        url: urlA + '/producto/update/' + id,
+        data: { name, description, price, quantity }
+    }).done(function(res) {
+        findArreglo();
+    });
+};
+
+const deleteArreglo = async() => {
+    let id = document.getElementById("id_delete").value;
+    await $.ajax({
+        type: 'POST',
+        url: 'http://localhost:5000/producto/delete/' + id
+    }).done(res => {
+        findArreglo();
+
+    });
+};
+
+
+const getId = async id => {
+    document.getElementById("id_delete").value = id;
+
+
+};

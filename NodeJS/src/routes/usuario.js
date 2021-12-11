@@ -17,7 +17,6 @@ const pool = require('../database.js');
 // });
 
 
-
 //UPDATE A USER
 
 router.post('/update/:id', async(req, res) => {

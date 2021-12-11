@@ -69,4 +69,46 @@ router.post('/update/:id', async(req, res) => {
     });
 });
 
+router.post('/login/', async(req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    let { email, password } = req.body;
+
+    let user = await pool.query('SELECT * FROM usuario WHERE usuario = ?', [email]);
+    if (user.hasOwnProperty(0)) {
+        let idUser = user[0].idUser;
+        let contra = user[0].password;
+        let name = await pool.query('SELECT name, lastName FROM cliente WHERE idCliente = ?', [idUser]);
+        let nameSurname = `${name[0].name} ${name[0].lastName}`;
+        let idRol = `${user[0].rol}`
+        if (password == contra) {
+            res.json({
+                status: "200",
+                message: "Success",
+                roleUser: idRol,
+                name: nameSurname
+            });
+        } else if (password === "") {
+
+            res.json({
+                status: "500",
+                message: "No"
+
+            });
+
+        } else {
+
+            res.json({
+                status: "500",
+                message: "Invalid password or email"
+            })
+        }
+
+    } else {
+        res.json({
+            status: "500",
+            message: "No"
+        });
+    }
+})
+
 module.exports = router;
