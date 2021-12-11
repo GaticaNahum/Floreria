@@ -1,5 +1,7 @@
 const urlA = "http://localhost:5000";
 
+//Crear un arreglo
+
 const createArreglo = async ()=>{
     let name = document.getElementById('nombreArreglo').value;
     let description = document.getElementById('descripcionArreglo').value;
@@ -33,13 +35,14 @@ const createArreglo = async ()=>{
         });
     }else{
         Swal.fire({
-            title: "Rellena los campos primero",
+            title: "Rellena los campos hola primero",
             confirmButtonText: "Aceptar",
             icon: "error",
             })
     }   
-}
+};
 
+//Encontrar arreglo
 
 const findArreglo = async() => {
     await $.ajax({
@@ -63,10 +66,10 @@ const findArreglo = async() => {
                     <button class='btn btn-primary' data-toggle='modal' onclick='getInfoArreglo(${res[i].idArreglo})'  data-target='#detallesProducto'><i class='fas fa-info-circle'></i></button>
                 </td>
                 <td>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalModificarAuto" class="btn btn-outline-warning"><i class="fas fa-edit"></i></button>
+                    <button data-toggle='modal' onclick='getInfoUpdateArreglo(${res[i].idArreglo})' data-target='#update' class='btn btn-warning'><i class="fas fa-edit"></i></button>
                 </td>
                 <td>
-                    <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    <button class='btn btn-danger' data-toggle='modal' onclick='getId(${res[i].idArreglo})' data-target='#delete' ><i class="fas fa-trash"></i></button>
                 </td>
             /tr>
                 `;
@@ -74,9 +77,8 @@ const findArreglo = async() => {
         $("#productos > tbody").html(content);
     });
 };
-findArreglo();
 
-
+//Obtener Id del arreglo seleccionado
 
 const getByIdF = async id => {
     return await $.ajax({
@@ -87,10 +89,61 @@ const getByIdF = async id => {
     });
 };
 
+//Obtener la información del arreglo
+
 const getInfoArreglo = async id => {
     let arreglo = await getByIdF(id);
 
     document.getElementById('descripcionInfo').value = arreglo.arreglo[0].description;
-    document.getElementById('categoriaInfo').value = arreglo.arreglo[0].idCategoria;
+
 }
 
+//Obtener informacion para actualizar
+
+const getInfoUpdateArreglo = async id => {
+    let arreglo = await getByIdF(id);
+
+    document.getElementById('id_update').value = id
+    document.getElementById('name_update').value = arreglo.arreglo[0].name
+    document.getElementById('descripcion_update').value = arreglo.arreglo[0].description
+    document.getElementById('price_update').value = arreglo.arreglo[0].price
+    document.getElementById('quantity_update').value = arreglo.arreglo[0].quantity
+};
+
+//Actualizar arreglo
+
+const updateArreglo = async () => {
+    let id = document.getElementById('id_update').value;
+    let name = document.getElementById('name_update').value;
+    let description = document.getElementById('descripcion_update').value;
+    let price = document.getElementById('price_update').value;
+    let quantity = document.getElementById('quantity_update').value;
+
+    $.ajax({
+        type: 'POST',
+        url: urlA+ '/producto/update/' + id,
+        data: { name,description, price, quantity }
+    }).done(function (res) {
+        findArreglo();
+    });
+};
+
+const deleteArreglo = async () => {
+    let id = document.getElementById("id_delete").value;
+    await $.ajax({
+        type: 'POST',
+        url: 'http://localhost:5000/producto/delete/' + id
+    }).done(res => {
+        findArreglo();
+
+    });
+};
+
+
+const getId = async id => {
+    document.getElementById("id_delete").value = id;
+
+
+};
+
+findArreglo();

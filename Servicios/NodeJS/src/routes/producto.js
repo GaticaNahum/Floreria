@@ -58,5 +58,14 @@ router.post('/update/:id', async(req, res) => {
     });
 });
 
+router.post('/delete/:id', (req,res) =>{
+    const { id } = req.params;
+    pool.query('UPDATE arreglo SET status = 0 WHERE idArreglo = ?', [id]);
+    res.json({
+        status: 200,
+        message: "Se ha eliminado correctamente"
+    });
+})
+
 
 module.exports = router;

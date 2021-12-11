@@ -12,6 +12,8 @@
 
 <body>
 
+    <!--              Navegador             -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -47,6 +49,7 @@
         </div>
     </nav>
 
+<!--             TABLA ARREGLOS             -->
 
     <section class="mt-5">
         <div class="container">
@@ -72,7 +75,7 @@
         </div>
     </section>
 
-    <!-- MODAL CREATE -->
+    <!--            MODAL CREATE               -->
 
     <section>
        
@@ -106,7 +109,7 @@
       </div>
   </section>
 
-    <!--Modal de información del producto-->
+    <!--     Modal de información del producto             -->
     <div class="modal" id="detallesProducto" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -132,44 +135,7 @@
         </div>
     </div>
 
-    <!--Modal de información del producto-->
-    <div class="modal" id="updateProducto" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Actualizar del arreglo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Nombre</label>
-                            <input type="text" disabled name="nombreUpdate" id="nombreUpdate" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Precio</label>
-                            <input type="number" disabled name="precioUpdate" id="precioUpdate" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Cantidad</label>
-                            <input type="text" disabled name="cantidadUpdate" id="cantidadUpdate" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Descripción</label>
-                            <input type="text" disabled name="descripcionUpdate" id="descripcionUpdate" class="form-control">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer ml-auto">
-                    <button type="button" class="btn btn-primary">Comprar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- MODAL UPDATE -->
+<!--                    MODAL UPDATE                      -->
     <section>
        
         <div class="modal fade" id="update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -181,20 +147,20 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
-                  <form action="javascript:void(0);" onsubmit="createArreglo();">
+                  <form action="javascript:void(0);" onsubmit="updateArreglo();">
                       <div class="modal-body">
                           <input type="hidden" id="id_update">
                           <label>Nombre:</label>
-                          <input type="text" class="form-control" id="nombreArreglo">
+                          <input type="text" class="form-control" id="name_update">
                           <label>Descripción:</label>
-                          <input type="text" class="form-control" id="descripcionArreglo">
+                          <input type="text" class="form-control" id="descripcion_update">
                           <label>Precio:</label>
-                          <input type="number" class="form-control" id="precioArreglo">
+                          <input type="number" class="form-control" id="price_update">
                           <label>Cantidad:</label>
-                          <input type="text" class="form-control" id="cantidadArreglo">
+                          <input type="text" class="form-control" id="quantity_update">
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                              <button type="submit" class="btn btn-primary" >Crear</button>
+                              <button type="submit" class="btn btn-primary" >Actualizar</button>
                           </div>
                   </form>
               </div>
@@ -202,6 +168,36 @@
       </div>
   </section>
 
+        <!--              MODAL DELETE              -->
+
+<section>
+
+    <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <form action="javascript:void(0);" onsubmit="deleteArreglo();">
+                  <div class="modal-body">
+                      <input type="hidden" id="id_delete">
+                      <label>¿Desea eliminar el producto?</label>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+                  </div>
+              </form>
+         </div>
+      </div>
+  </div> 
+</section>
+
+
+<!-- FOOTER -->
 
     <footer class="text-center text-white mt-5" style="background-color: #f1f1f1;">
         <!-- Grid container -->
