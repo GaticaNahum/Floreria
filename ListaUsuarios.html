@@ -73,42 +73,42 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tulipanes Rosas</h5>
+                    <h5 class="modal-title">Crear arreglo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form class="needs-validation" novalidate>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nombre del arreglo</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control" aria-describedby="emailHelp">
+                            <label for="exampleInput">Nombre del arreglo</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" onkeypress="return sololetras(event)" minlength="2" maxlength="25" required>
+                            <div class="invalid-feedback">¡Complete este campo!</div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Descripcion</label>
-                            <input type="text" name="descripcion" id="descripcion" class="form-control">
+                            <label for="exampleInput">Descripcion</label>
+                            <input type="text" name="descripcion" id="descripcion" class="form-control" minlength="3" maxlength="150" required>
+                            <div class="invalid-feedback">¡Complete este campo!</div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Precio</label>
-                            <input type="number" name="precio" id="precio" class="form-control">
+                            <label for="exampleInput">Precio</label>
+                            <input type="number" name="precio" id="precio" class="form-control" onkeypress="return solonumeros(event)" minlength="2" required>
+                            <div class="invalid-feedback">¡Complete este campo!</div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Imagen</label>
+                            <label for="exampleInput">Imagen</label>
                             <input type="file" name="imagen" id="imagen" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Cantidad</label>
-                            <input type="password" name="cantidad" id="cantidad" class="form-control">
+                            <label for="exampleInput">Cantidad</label>
+                            <input type="number" name="cantidad" id="cantidad" class="form-control" onkeypress="return solonumeros(event)" minlength="1" required>
+                            <div class="invalid-feedback">¡Complete este campo!</div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Categoría</label>
-                            <input type="password" name="categoria" id="categoria" class="form-control">
-                        </div>
+                        <button type="submit" class="btn btn-primary float-right">Guardar</button>
+                        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal" style="margin-right: 15px;">Cerrar</button>
                     </form>
                 </div>
                 <div class="modal-footer ml-auto">
-                    <button type="button" class="btn btn-primary">Comprar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -224,6 +224,7 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="/assets/js/cliente.js"></script>
+    <script src="/assets/js/validaciones.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
 

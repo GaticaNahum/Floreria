@@ -115,14 +115,11 @@ const getInfoUpdateArreglo = async id => {
 const updateArreglo = async() => {
     let id = document.getElementById('id_update').value;
     let name = document.getElementById('name_update').value;
-    let description = document.getElementById('descripcion_update').value;
-    let price = document.getElementById('price_update').value;
-    let quantity = document.getElementById('quantity_update').value;
 
     $.ajax({
         type: 'POST',
         url: urlA + '/producto/update/' + id,
-        data: { name, description, price, quantity }
+        data: { name }
     }).done(function(res) {
         findArreglo();
     });
