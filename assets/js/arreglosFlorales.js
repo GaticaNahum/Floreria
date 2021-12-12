@@ -26,7 +26,7 @@ const createArreglo = async() => {
                 findArreglo();
             } else {
                 Swal.fire({
-                    title: "Se ha creado correctamente",
+                    title: "Hubo un error al registrar",
                     confirmButtonText: "Aceptar",
                     icon: "error",
                 });
@@ -35,7 +35,7 @@ const createArreglo = async() => {
         });
     } else {
         Swal.fire({
-            title: "Rellena los campos hola primero",
+            title: "Rellena los campos primero",
             confirmButtonText: "Aceptar",
             icon: "error",
         })

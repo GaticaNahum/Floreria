@@ -62,15 +62,39 @@ const registerClient = async() => {
     let usuario = document.getElementById('correoElectronico').value;
     let password = document.getElementById('password').value;
 
-    console.log(name, lastName, secondName, phone, address, usuario, password);
-    await $.ajax({
-        type: "POST",
-        url: url + "/cliente/create/",
-        data: { name, lastName, secondName, phone, address, usuario, password }
-    }).done(function(res) {
-        console.log(res);
-    });
+    if (name !== "" || lastName !== "" || secondName !== "" || phone !== "" || address !== "" || usuario !== "" || password !== "") {
+        await $.ajax({
+            type: 'POST',
+            headers: { "Accept": "application/json" },
+            url: url + "/cliente/create/",
+            data: { name, lastName, secondName, phone, address, usuario, password }
+        }).done(res => {
+            if (res.status === 200) {
+                Swal.fire({
+                    title: "Hubo un error al registrar",
+                    confirmButtonText: "Aceptar",
+                    icon: "error",
+                });
+                findCliente();
+            } else {
+                Swal.fire({
+                    title: "Se ha creado correctamente",
+                    confirmButtonText: "Aceptar",
+                    icon: "success",
+                });
+                findCliente();
+            }
+        });
+    } else {
+        Swal.fire({
+            title: "Rellena los campos primero",
+            confirmButtonText: "Aceptar",
+            icon: "error",
+        })
+    }
 };
+
+
 
 
 const downClient = async() => {
