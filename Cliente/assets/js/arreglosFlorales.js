@@ -1,5 +1,18 @@
 const urlA = "http://localhost:5000";
 
+
+//Imagen to Base64
+
+const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            resolve(reader.result.split(',')[1]);
+        }
+    })
+}
+
 //Crear un arreglo
 
 const createArreglo = async ()=>{
@@ -7,14 +20,23 @@ const createArreglo = async ()=>{
     let description = document.getElementById('descripcionArreglo').value;
     let price = document.getElementById('precioArreglo').value;
     let quantity = document.getElementById('cantidadArreglo').value;
+    let image = document.getElementById('imagenArreglo').files[0];
 
-    if(name !== "" || description !== "", price !== "", quantity!== ""){
+    if(name == "" || description == ""|| price == ""|| quantity== "" || image == null){
+        Swal.fire({
+            title: "Rellena los campos faltantes",
+            confirmButtonText: "Aceptar",
+            icon: "error",
+            })
+    }else{
+        
+            const imagen = await blobToBase64(image);
 
         $.ajax({
             type: 'POST',
             headers: { "Accept": "application/json" },
             url: urlA+ '/producto/create',
-            data: { name, description, price, quantity }
+            data: { name, description, price, quantity, imagen }
         }).done(res => {
             if(res.status === 200){
             
@@ -33,12 +55,6 @@ const createArreglo = async ()=>{
                     findArreglo();
             }
         });
-    }else{
-        Swal.fire({
-            title: "Rellena los campos hola primero",
-            confirmButtonText: "Aceptar",
-            icon: "error",
-            })
     }   
 };
 
@@ -55,6 +71,8 @@ const findArreglo = async() => {
 
 
         for (let i = 0; i < res.length; i++) {
+            let array8 = new Uint8Array(res[i].imagen.data);
+            var imagen = new TextDecoder().decode(array8);
             content += `
             <tr class="text-center">
                 <td>${res[i].idArreglo}</td>
@@ -62,6 +80,9 @@ const findArreglo = async() => {
                 <td>${res[i].price}</td>
                 <td>${res[i].status ==1?"Activo":"Inactivo"} </td>
                 <td>${res[i].quantity}</td>
+                <td>
+                <img src= "data:image/*;base64,${imagen}" class = "d-block w-100" alt="">
+                </td>
                 <td>
                     <button class='btn btn-primary' data-toggle='modal' onclick='getInfoArreglo(${res[i].idArreglo})'  data-target='#detallesProducto'><i class='fas fa-info-circle'></i></button>
                 </td>
@@ -127,6 +148,8 @@ const updateArreglo = async () => {
         findArreglo();
     });
 };
+
+//Dar de baja un arreglo
 
 const deleteArreglo = async () => {
     let id = document.getElementById("id_delete").value;
