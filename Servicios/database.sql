@@ -36,7 +36,7 @@ CREATE TABLE arreglo (
     idArreglo INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL, 
     description VARCHAR(150) NOT NULL,
-    price LONG(11,2) NOT NULL,
+    price DOUBLE(11,2) NOT NULL,
     status TINYINT NOT NULL,
     quantity INT NOT NULL,
     imagen LONG BLOB NOT NULL,
