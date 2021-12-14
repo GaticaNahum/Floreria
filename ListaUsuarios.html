@@ -22,7 +22,7 @@
                     <a style="color: #cb3b48;" class="nav-link" href="IndexAdmin.html"><i class="fas fa-home mr-1"></i>Inicio </a>
                 </li>
                 <li class="nav-item mt-4">
-                    <a type="button" data-toggle="modal" data-target="#crearProducto" style="color: #cb3b48;" class="nav-link"><i class="fas fa-plus-circle mr-1"></i>Crear Arreglo </a>
+                    <a type="button" data-toggle="modal" data-target="#crearArreglo" style="color: #cb3b48;" class="nav-link"><i class="fas fa-plus-circle mr-1"></i>Crear Arreglo </a>
                 </li>
                 <figure style="width: 28%;">
                     <img style="display: block; margin-left: auto; margin-right: auto;" class="img-fluid" width="45%" src="/assets/images/Logo.png" alt="">
@@ -34,11 +34,11 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a style="color: #cb3b48;" class="dropdown-item" href="IndexLogin.html"><i class="fas fa-user-circle mr-2"></i>Perfil</a>
                         <a style="color: #cb3b48;" class="dropdown-item" href="ListaUsuarios.html"><i class="fas fa-users mr-2"></i>Lista del usuarios</a>
-                        <a style="color: #cb3b48;" class="dropdown-item" href=""><i class="far fa-times-circle mr-2"></i> Cerrar Sesión</a>
+                        <a style="color: #cb3b48;" class="dropdown-item" href="Login.html"><i class="far fa-times-circle mr-2"></i> Cerrar Sesión</a>
                     </div>
                 </li>
                 <li class="nav-item mt-4">
-                    <a style="color: #cb3b48;" class="nav-link" href="#"><i class="fas fa-shopping-cart mr-1"></i>Carrito</a>
+                    <a style="color: #cb3b48;" class="nav-link" href="CarritoAdmin.html"><i class="fas fa-shopping-cart mr-1"></i>Carrito</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -68,51 +68,46 @@
         </div>
     </section>
 
-    <!--Modal para crear producto-->
-    <div class="modal" id="crearProducto" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Crear arreglo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-                </div>
-                <div class="modal-body">
-                    <form class="needs-validation" novalidate>
-                        <div class="form-group">
-                            <label for="exampleInput">Nombre del arreglo</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control" onkeypress="return sololetras(event)" minlength="2" maxlength="25" required>
+
+    <!--            MODAL CREATE               -->
+
+    <section>
+        <div class="modal fade" id="crearArreglo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Crear arreglo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="javascript:void(0);" onsubmit="createArreglo();" novalidate>
+                        <div class="modal-body">
+                            <input type="hidden" id="id_update">
+                            <label>Nombre:</label>
+                            <input type="text" class="form-control" id="nombreArreglo" onkeypress="return sololetras(event)" minlength="2" maxlength="25" required>
                             <div class="invalid-feedback">¡Complete este campo!</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInput">Descripcion</label>
-                            <input type="text" name="descripcion" id="descripcion" class="form-control" minlength="3" maxlength="150" required>
+                            <label>Descripción:</label>
+                            <input type="text" class="form-control" id="descripcionArreglo" minlength="3" maxlength="150" required>
                             <div class="invalid-feedback">¡Complete este campo!</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInput">Precio</label>
-                            <input type="number" name="precio" id="precio" class="form-control" onkeypress="return solonumeros(event)" minlength="2" required>
+                            <label>Precio:</label>
+                            <input type="number" class="form-control" id="precioArreglo" onkeypress="return solonumeros(event)" minlength="2" required>
                             <div class="invalid-feedback">¡Complete este campo!</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInput">Imagen</label>
-                            <input type="file" name="imagen" id="imagen" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInput">Cantidad</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control" onkeypress="return solonumeros(event)" minlength="1" required>
+                            <label>Cantidad:</label>
+                            <input type="text" class="form-control" id="cantidadArreglo" onkeypress="return solonumeros(event)" minlength="1" required>
                             <div class="invalid-feedback">¡Complete este campo!</div>
-                        </div>
-                        <button type="submit" class="btn btn-primary float-right">Guardar</button>
-                        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal" style="margin-right: 15px;">Cerrar</button>
+                            <label>Imagen:</label>
+                            <input type="file" class="form-control" id="imagenArreglo">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                            </div>
                     </form>
-                </div>
-                <div class="modal-footer ml-auto">
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+    </section>
+
 
     <!--Modal de información del cliente-->
     <div class="modal" id="detallesCliente" tabindex="-1">
@@ -227,7 +222,8 @@
     <script src="/assets/js/validaciones.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
-
+    <script src="/assets/js/arreglosFlorales.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

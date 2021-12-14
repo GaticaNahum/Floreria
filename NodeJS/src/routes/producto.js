@@ -26,13 +26,14 @@ router.get('/:id', async(req, res) => {
 
 router.post('/create', async(req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    const { name, description, price, quantity } = req.body;
+    const { name, description, price, quantity, imagen } = req.body;
     const arreglo = {
         name,
         description,
         price,
         status: 1,
-        quantity
+        quantity,
+        imagen
     };
     await pool.query('INSERT INTO arreglo SET ? ', [arreglo]);
     res.json({

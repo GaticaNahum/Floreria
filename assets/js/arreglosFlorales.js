@@ -1,5 +1,15 @@
 const urlA = "http://localhost:5000";
 
+const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            resolve(reader.result.split(',')[1]);
+        }
+    })
+}
+
 //Crear un arreglo
 
 const createArreglo = async() => {
@@ -7,14 +17,23 @@ const createArreglo = async() => {
     let description = document.getElementById('descripcionArreglo').value;
     let price = document.getElementById('precioArreglo').value;
     let quantity = document.getElementById('cantidadArreglo').value;
+    let image = document.getElementById('imagenArreglo').files[0];
 
-    if (name !== "" || description !== "", price !== "", quantity !== "") {
+    if (name == "" || description == "" || price == "" || quantity == "" || image == null) {
+        Swal.fire({
+            title: "Rellena los campos faltantes",
+            confirmButtonText: "Aceptar",
+            icon: "error",
+        })
+    } else {
+
+        const imagen = await blobToBase64(image);
 
         $.ajax({
             type: 'POST',
             headers: { "Accept": "application/json" },
             url: urlA + '/producto/create',
-            data: { name, description, price, quantity }
+            data: { name, description, price, quantity, imagen }
         }).done(res => {
             if (res.status === 200) {
 
@@ -26,19 +45,13 @@ const createArreglo = async() => {
                 findArreglo();
             } else {
                 Swal.fire({
-                    title: "Hubo un error al registrar",
+                    title: "Hubo un problema al registrar",
                     confirmButtonText: "Aceptar",
                     icon: "error",
                 });
                 findArreglo();
             }
         });
-    } else {
-        Swal.fire({
-            title: "Rellena los campos primero",
-            confirmButtonText: "Aceptar",
-            icon: "error",
-        })
     }
 };
 
@@ -51,9 +64,9 @@ const findArreglo = async() => {
     }).done(function(res) {
         content = "";
         res = res.listProducto;
-
-
         for (let i = 0; i < res.length; i++) {
+            let array8 = new Uint8Array(res[i].imagen.data);
+            var imagen = new TextDecoder().decode(array8);
             content += `
             <tr class="text-center">
                 <td>${res[i].idArreglo}</td>
@@ -74,11 +87,28 @@ const findArreglo = async() => {
                 `;
         }
         $("#productos > tbody").html(content);
+
+        contenido = "";
+        for (let i = 0; i < res.length; i++) {
+            let array8 = new Uint8Array(res[i].imagen.data);
+            var imagen = new TextDecoder().decode(array8);
+            contenido += ` 
+                <div class="col-12 col-sm-3 col-md-3">
+                    <figure>
+                        <img class="img-fluid rounded float-start" width="75%" height="75%" src= "data:image/*;base64,${imagen}" alt="">
+                    </figure>
+                </div>
+              `;
+        }
+        $("#show > div").html(contenido);
     });
 };
 findArreglo();
 
 //Obtener Id del arreglo seleccionado
+//<td>
+//<img src= "data:image/*;base64,${imagen}" class = "d-block w-100" alt="">
+//</td>
 
 const getByIdF = async id => {
     return await $.ajax({
@@ -95,7 +125,6 @@ const getInfoArreglo = async id => {
     let arreglo = await getByIdF(id);
 
     document.getElementById('descripcionInfo').value = arreglo.arreglo[0].description;
-
 }
 
 //Obtener informacion para actualizar
@@ -115,11 +144,14 @@ const getInfoUpdateArreglo = async id => {
 const updateArreglo = async() => {
     let id = document.getElementById('id_update').value;
     let name = document.getElementById('name_update').value;
+    let description = document.getElementById('descripcion_update').value;
+    let price = document.getElementById('price_update').value;
+    let quantity = document.getElementById('quantity_update').value;
 
     $.ajax({
         type: 'POST',
         url: urlA + '/producto/update/' + id,
-        data: { name }
+        data: { name, description, price, quantity }
     }).done(function(res) {
         findArreglo();
     });

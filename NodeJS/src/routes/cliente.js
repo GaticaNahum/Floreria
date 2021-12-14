@@ -80,6 +80,7 @@ router.post('/login/', async(req, res) => {
         let name = await pool.query('SELECT name, lastName FROM cliente WHERE idCliente = ?', [idUser]);
         let nameSurname = `${name[0].name} ${name[0].lastName}`;
         let idRol = `${user[0].rol}`
+
         if (password == contra) {
             res.json({
                 status: "200",
