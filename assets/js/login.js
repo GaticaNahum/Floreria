@@ -13,8 +13,12 @@ const login = async() => {
 
                 if (res.roleUser === "1") {
                     location.href = "/IndexAdmin.html";
+                    localStorage.setItem("nombe", res.name)
+                    localStorage.setItem("idUser", res.idUser)
                 } else {
                     location.href = "/IndexUser.html";
+                    localStorage.setItem("nombe", res.name)
+                    localStorage.setItem("idUser", res.idUser)
                 }
 
             } else if (res.message === 'No') {

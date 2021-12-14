@@ -10,6 +10,18 @@ const blobToBase64 = (blob) => {
     })
 }
 
+
+function getInfoSesion() {
+    let nombre = localStorage.getItem("nombe");
+    let idUser = localStorage.getItem("idUser");
+
+    mostrar = "";
+    mostrar += `<div>${nombre}</div> `;
+    $("#mostrar > a").html(mostrar);
+
+}
+getInfoSesion();
+
 //Crear un arreglo
 
 const createArreglo = async() => {
@@ -95,7 +107,9 @@ const findArreglo = async() => {
             contenido += ` 
                 <div class="col-12 col-sm-3 col-md-3">
                     <figure>
-                        <img class="img-fluid rounded float-start" width="75%" height="75%" src= "data:image/*;base64,${imagen}" alt="">
+                        <a href="/Pedido.html">
+                            <img  class="img-fluid rounded float-start" width="75%" height="75%" src= "data:image/*;base64,${imagen}" alt="">
+                        </a>
                     </figure>
                 </div>
               `;
@@ -123,7 +137,6 @@ const getByIdF = async id => {
 
 const getInfoArreglo = async id => {
     let arreglo = await getByIdF(id);
-
     document.getElementById('descripcionInfo').value = arreglo.arreglo[0].description;
 }
 
