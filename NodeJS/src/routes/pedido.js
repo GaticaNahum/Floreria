@@ -31,7 +31,7 @@ router.get('/:id', async(req, res) => {
 
 router.post('/create', async(req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    const { place, precio, idUser, idArreglo } = req.body;
+    const { place, price, idUser, idArreglo } = req.body;
     var date = new Date().toISOString();
     let tmp = new Date(date);
     let suma = 5 * 86399.9;
@@ -41,7 +41,7 @@ router.post('/create', async(req, res) => {
         orderDate: date,
         deadLine: date2,
         place,
-        precio,
+        price,
         idUser,
         idArreglo
     };
