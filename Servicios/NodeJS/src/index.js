@@ -25,6 +25,7 @@ app.use(require('./routes/index.js'));
 app.use('/cliente', require('./routes/cliente.js'));
 app.use('/usuario', require('./routes/usuario.js'));
 app.use('/producto', require('./routes/producto.js'));
+app.use('/pedido', require('./routes/pedido.js'));
 // 
 
 

@@ -13,8 +13,22 @@ const login = async () => {
                   
                         if(res.roleUser === "1"){
                               location.href = "./IndexAdmin.html";
+            
+                              console.log(res);
                         }else{
                               location.href = "./IndexUser.html";
+                              console.log(res.name);
+                              console.log(res.name);
+                              console.log(res.name);
+                              console.log(res.name);
+                              console.log(res);
+                              console.log(res);
+                              console.log(res);
+                              content = "";
+                              content += `
+                                    <h1>${res.name}</h1>
+                              `;
+                              $("#nameUser").html(content);
                         }
                         
                 } else if (res.message ==='No') {

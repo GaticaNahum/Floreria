@@ -46,10 +46,15 @@ CREATE TABLE arreglo (
 );
 
 CREATE TABLE pedido (
-	idPedido INT NOT NULL AUTO_INCREMENT,
-    status TINYINT NOT NULL,
-    idUser INT NOT NULL,
-    idArreglo INT NOT NULL,
+	
+    idPedido int(11) NOT NULL AUTO_INCREMENT,
+    status tinyint(4) NOT NULL,
+    orderDate datetime DEFAULT NULL,
+    deadLine date DEFAULT NULL,
+    place varchar(200) DEFAULT NULL,
+    precio double DEFAULT NULL,
+    idUser int(11) NOT NULL,
+    idArreglo int(11) NOT NULL
     
     CONSTRAINT pk_pedido_id PRIMARY KEY (idPedido),
     FOREIGN KEY (idUser) REFERENCES usuario(idUser),

@@ -48,7 +48,7 @@ const createArreglo = async ()=>{
                     findArreglo();
             }else{
                 Swal.fire({
-                    title: "Se ha creado correctamente",
+                    title: "No se ha creado correctamente",
                     confirmButtonText: "Aceptar",
                     icon: "error",
                     });
