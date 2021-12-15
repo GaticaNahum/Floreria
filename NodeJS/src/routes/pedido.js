@@ -4,6 +4,19 @@ const pool = require('../database.js');
 
 //Obtener todos los pedidos
 
+
+router.get('/:id', async(req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const { id } = req.params;
+    let arreglo = await pool.query('Select * from pedido where idUser = ?', [id]);
+    res.json({
+        status: 200,
+        message: "Se ha obtenido correctamente",
+        arreglo: arreglo
+    });
+});
+
+
 router.get('/', async(req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     let listPedidos = await pool.query('SELECT * FROM pedido');
@@ -16,7 +29,7 @@ router.get('/', async(req, res) => {
 
 //ENCONTRAR POR ID
 
-router.get('/:id', async(req, res) => {
+/*router.get('/:id', async(req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     const { id } = req.params;
     let pedido = await pool.query('SELECT * FROM pedido WHERE idPedido = ?', [id]);
@@ -25,7 +38,7 @@ router.get('/:id', async(req, res) => {
         message: "Se ha encontrado el pedido",
         pedido: pedido
     });
-});
+});*/
 
 //CREAR UN PEDIDO
 

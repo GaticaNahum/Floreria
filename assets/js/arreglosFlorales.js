@@ -130,6 +130,11 @@ const findArreglo = async() => {
                     <figure>
                         <a href="./Pedido.html" onclick='getByIdF(${res[i].idArreglo})'>
                             <img  class="img-fluid rounded float-start" width="75%" height="75%" src= "data:image/*;base64,${imagen}" alt="">
+                            <div class="text-warning mt-2">
+                                <h6 style="color: black;">${res[i].name}</h6>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <h3 style="color: black;" style="font-size: 22px;">$${res[i].price}<span style="font-size: 22px;">.00</span></h3>
+                            </div>
                         </a>
                     </figure>
                 </div>

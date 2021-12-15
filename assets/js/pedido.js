@@ -24,7 +24,7 @@ const createPedido = async() => {
             if (res.status === 200) {
 
                 Swal.fire({
-                    title: "Se ha creado correctamente",
+                    title: "Se realizo la compra correctamente",
                     confirmButtonText: "Aceptar",
                     icon: "success",
                 });
@@ -38,3 +38,56 @@ const createPedido = async() => {
         });
     }
 };
+
+
+const findPedidos = async id => {
+    await $.ajax({
+        method: 'GET',
+        headers: { "Accept": "application/json" },
+        url: urlP + '/pedido/' + localStorage.getItem("idUser")
+    }).done(function(res) {
+        content = "";
+        res = res.arreglo;
+
+
+        for (let i = 0; i < res.length; i++) {
+            content += `
+            <tr class="text-center">
+                <td>${res[i].status ==1?"Pendiente":"Enviado"?"Entregado":"Confirmado"}</td>
+                <td>${res[i].price}</td>
+                <td>${res[i].place} </td>
+                <td>${res[i].orderDate} </td>
+                <td>${res[i].deadLine}</td>
+            </tr>
+                `;
+        };
+        $("#pedido > tbody").html(content)
+    });
+};
+findPedidos();
+
+
+const findPedidosAll = async id => {
+    await $.ajax({
+        method: 'GET',
+        headers: { "Accept": "application/json" },
+        url: urlP + '/pedido'
+    }).done(function(res) {
+        content = "";
+        res = res.listPedidos;
+        for (let i = 0; i < res.length; i++) {
+            content += `
+            <tr class="text-center">
+                <td>${res[i].status ==1?"Pendiente":"Enviado"?"Entregado":"Confirmado"}</td>
+                <td>${res[i].price}</td>
+                <td>${res[i].place} </td>
+                <td>${res[i].orderDate} </td>
+                <td>${res[i].deadLine}</td>
+                <td>${res[i].idUser ==2?"Kemish":"Thayli"}</td>
+            </tr>
+                `;
+        };
+        $("#admon > tbody").html(content)
+    });
+};
+findPedidosAll();
